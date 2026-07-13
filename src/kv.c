@@ -4,8 +4,8 @@
 #include <string.h>
 
 kv_t  *kv_init(size_t capacity) {
-    if (capacity == 0) {
-        perror("Capacity must be greater than zero");
+    if (capacity <= 1) {
+        perror("Capacity must be greater than one");
         return NULL;
     }
     kv_t *db = malloc(sizeof(kv_t));
