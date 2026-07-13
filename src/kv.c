@@ -24,7 +24,7 @@ kv_t  *kv_init(size_t capacity) {
 }
 
 size_t hash(char* key, size_t capacity) {
-    size_t hash = 0x811c9dc5beafaa;
+    size_t hash = 0x13811c9dc5beafaa;
 
     while (*key) {
         hash ^= *key;
