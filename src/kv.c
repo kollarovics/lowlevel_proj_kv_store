@@ -41,7 +41,7 @@ int  kv_put(kv_t *db, char *key, char *value) {
         perror("Incorrect db, key or val");
         return -1;
     }
-    size_t idx = hash((char*)key, db->capacity);
+    size_t idx = hash(key, db->capacity);
     for (int i = 0; i < db->capacity -1; i++) {
         size_t real_idx = (idx + i) % db->capacity;
         printf("Calculated idx: %zu\n", real_idx);
@@ -81,4 +81,32 @@ int  kv_put(kv_t *db, char *key, char *value) {
 
     // db full
     return -2;
+}
+
+char  *kv_get(kv_t *db, char *key)
+{
+    if (!db || !key) {
+        perror("Incorrect db, key or val");
+        return NULL;
+    }
+    size_t idx = hash(key, db->capacity);
+    for (int i = 0; i < db->capacity -1; i++)
+    {
+        size_t real_idx = (idx + i) % db->capacity;
+        kv_entry_t *entry = &db->entries[real_idx];
+        if (entry->key == NULL)
+        {
+            return NULL;
+        }
+        if (entry->key == TOMBSTONE)
+        {
+            continue;
+        }
+        if (!strcmp(entry->key, key))
+        {
+            return entry->value;
+        }
+    }
+
+    return NULL;
 }
