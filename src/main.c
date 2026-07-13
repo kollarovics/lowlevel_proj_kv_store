@@ -5,9 +5,8 @@ int main(void) {
     kv_t* db = kv_init(16);
     size_t idx = kv_put(db, "color", "red");
     printf("idx: %zu\n", idx);
-    idx = kv_put(db, "color", "blue");
-    printf("idx: %zu\n", idx);
-    idx = kv_put(db, "velem", "KKv1kksjjd");
+    kv_delete(db, "color");
+    idx = kv_put(db, "color", "grey");
     printf("idx: %zu\n", idx);
     return 0;
 }

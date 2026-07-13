@@ -69,8 +69,8 @@ int  kv_put(kv_t *db, char *key, char *value) {
                 free(new_val);
                 return -1;
             }
-            free(entry->key);
-            free(entry->value);
+            // free(entry->key);
+            // free(entry->value);
             entry->key = new_key;
             entry->value = new_val;
             db->count++;
