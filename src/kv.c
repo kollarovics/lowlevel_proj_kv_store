@@ -36,7 +36,7 @@ size_t hash(char* key, size_t capacity) {
     return hash % capacity;
 }
 
-int  kv_put(kv_t *db, char *key, const char *value) {
+int  kv_put(kv_t *db, char *key, char *value) {
     if (!db || !key || !value) {
         perror("Incorrect db, key or val");
         return -1;
