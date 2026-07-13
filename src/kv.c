@@ -56,6 +56,7 @@ int  kv_put(kv_t *db, char *key, char *value) {
             }
             free(entry->value);
             entry->value = new_val;
+            if (real_idx == 0) real_idx++;
             return real_idx;
         }
         //empty or deleted key
