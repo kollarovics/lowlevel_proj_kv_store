@@ -56,8 +56,8 @@ int  kv_put(kv_t *db, char *key, char *value) {
             }
             free(entry->value);
             entry->value = new_val;
-            if (real_idx == 0) real_idx++;
-            return real_idx;
+
+            return 100;
         }
         //empty or deleted key
         if (!entry->key || entry->key == (void*)TOMBSTONE) {
@@ -74,7 +74,7 @@ int  kv_put(kv_t *db, char *key, char *value) {
             entry->key = new_key;
             entry->value = new_val;
             db->count++;
-            return real_idx;
+            return 100;
         }
 
     }
