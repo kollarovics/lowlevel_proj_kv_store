@@ -110,3 +110,32 @@ char  *kv_get(kv_t *db, char *key)
 
     return NULL;
 }
+
+int    kv_delete(kv_t *db, char *key)
+{
+    if (!db || !key) {
+        perror("Incorrect db, key or val");
+        return -1;
+    }
+    size_t idx = hash(key, db->capacity);
+    for (int i = 0; i < db->capacity; i++)
+    {
+        size_t real_idx = (idx + i) % db->capacity;
+        kv_entry_t *entry = &db->entries[real_idx];
+
+        if (!entry->key)
+        {
+            return -1;
+        }
+
+        if (entry->key != (void*)TOMBSTONE && !strcmp(entry->key, key))
+        {
+            free(entry->key);
+            free(entry->value);
+            entry->key = (void*)TOMBSTONE;
+            db->count--;
+            return 0;
+        }
+    }
+
+}
