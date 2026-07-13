@@ -139,3 +139,31 @@ int    kv_delete(kv_t *db, char *key)
     }
 
 }
+
+void   kv_free(kv_t *db)
+{
+    if (!db) {
+        perror("Incorrect db, key or val");
+        return;
+    }
+
+    for (int i = 0; i < db->capacity; i++)
+    {
+        kv_entry_t *entry = &db->entries[i];
+        if (!entry->key)
+        {
+            continue;
+        }
+
+        if (entry->key && entry->key != (void*)TOMBSTONE)
+        {
+            free(entry->key);
+            free(entry->value);
+            // free(entry);
+            db->count--;
+        }
+
+    }
+    free(db->entries);
+    free(db);
+}

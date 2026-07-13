@@ -8,5 +8,7 @@ int main(void) {
     kv_delete(db, "color");
     idx = kv_put(db, "color", "grey");
     printf("idx: %zu\n", idx);
+
+    kv_free(db);
     return 0;
 }
